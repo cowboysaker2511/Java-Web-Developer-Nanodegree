@@ -10,7 +10,8 @@ import java.util.List;
 public interface FileMapper {
     @Select("SELECT * FROM FILES WHERE userid = #{userId}")
     List<FileUpload> getFileListByUserId(int userId);
-
+    @Select("SELECT * FROM FILES WHERE fileid = #{fileId}")
+    FileUpload getFileByFileId(Integer fileId);
 
     @Insert("INSERT INTO FILES(filename, contenttype, filesize, userid, filedata) VALUES(#{fileName}, #{contentType}, #{fileSize}, #{userId}, #{fileData})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
@@ -19,4 +20,5 @@ public interface FileMapper {
 
     @Delete("DELETE FROM FILES WHERE fileid = #{fileId}")
     public int deleteFileByFileId(Integer fileId);
+
 }

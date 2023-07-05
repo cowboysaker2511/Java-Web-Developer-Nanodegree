@@ -55,13 +55,12 @@
                         </thead>
                         <tbody>
                         <tr th:each="fileUpload : ${fileUploadList}">
-                            <form method="POST" th:action="@{/file/deleteFile}">
-                                <input id="delete-file-id" name="fileId" type="hidden"
-                                       th:value="${fileUpload.getFileId()}">
+                            <form method="POST" th:action="@{/file}">
                                 <td>
-                                    <input class="form-control-file" id="downloadFile" name="downloadFile" type="file">
-                                    <a class="btn btn-success" target="_blank">View</a>
-                                    <button class="btn btn-danger" type="submit"> Delete</button>
+                                    <input name="fileId" type="hidden"
+                                           th:value="${fileUpload.getFileId()}">
+                                    <button class="btn btn-success" name="viewFile" type="submit"> View</button>
+                                    <button class="btn btn-danger" name="deleteFile" type="submit"> Delete</button>
                                 </td>
                                 <th scope="row" th:text="${fileUpload.getFileName()}">ExampleFile.txt</th>
                             </form>

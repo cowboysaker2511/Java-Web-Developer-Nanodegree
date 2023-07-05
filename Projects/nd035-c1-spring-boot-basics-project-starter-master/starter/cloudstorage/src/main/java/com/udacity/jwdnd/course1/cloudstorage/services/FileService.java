@@ -18,6 +18,9 @@ public class FileService {
     public List<FileUpload> getFileListByUserId(Integer userId) {
         return fileMapper.getFileListByUserId(userId);
     }
+    public FileUpload getFileByFileId(Integer fileId) {
+        return fileMapper.getFileByFileId(fileId);
+    }
     public void uploadFile(FileUpload file) {
         fileMapper.uploadFile(file);
     }
@@ -25,4 +28,5 @@ public class FileService {
     public void deleteFileByFileId(Integer fileId) {
         fileMapper.deleteFileByFileId(fileId);
     }
+
 }

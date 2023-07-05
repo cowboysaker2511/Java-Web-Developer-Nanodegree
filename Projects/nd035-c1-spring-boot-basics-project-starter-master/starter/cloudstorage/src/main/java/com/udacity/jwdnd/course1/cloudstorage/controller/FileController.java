@@ -3,6 +3,9 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.entity.FileUpload;
 import com.udacity.jwdnd.course1.cloudstorage.security.token.SuperDuperDriveToken;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,14 +49,18 @@ public class FileController {
         return "redirect:/home";
     }
 
-    @PostMapping("/download")
-    public String downloadFile(Authentication authentication, FileUpload fileUpload) {
-        SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
+    @PostMapping(params = "viewFile")
+    public ResponseEntity viewFile(HttpServletRequest request, FileUpload fileUpload, HttpServletResponse response) {
+        FileUpload file = fileService.getFileByFileId(fileUpload.getFileId());
 
-        return "home";
+        //download file
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getFileName())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(file.getFileData());
     }
 
-    @PostMapping("/deleteFile")
+    @PostMapping(params = "deleteFile")
     public String deleteFile(Model model, Authentication authentication, FileUpload fileUpload) {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
 
