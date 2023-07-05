@@ -19,11 +19,11 @@ public class NoteService {
     }
 
     public void addNote(Note note) {
-        noteMapper.addNote(note.getNoteTitle(), note.getNoteDescription(), note.getUserId());
+        noteMapper.addNote(note);
     }
 
-    public void saveNote(Note note) {
-        noteMapper.saveNote(note.getNoteId(), note.getNoteTitle(), note.getNoteDescription(), note.getUserId());
+    public void updateNote(Note note) {
+        noteMapper.updateNote(note);
     }
 
     public void deleteNoteByNoteId(Integer noteId) {

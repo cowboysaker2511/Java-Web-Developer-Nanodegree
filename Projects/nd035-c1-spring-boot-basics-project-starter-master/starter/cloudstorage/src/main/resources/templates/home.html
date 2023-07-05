@@ -30,7 +30,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div aria-labelledby="nav-files-tab" class="tab-pane fade show active" id="nav-files" role="tabpanel">
-                <form action="#" enctype="multipart/form-data" method="POST">
+                <form action="#" enctype="multipart/form-data" method="POST" th:action="@{file/uploadFile}">
                     <div class="container">
                         <div class="row" style="margin: 1em;">
                             <div class="col-sm-2">
@@ -54,12 +54,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <a class="btn btn-success" target="_blank">View</a>
-                                <a class="btn btn-danger">Delete</a>
-                            </td>
-                            <th scope="row">ExampleFile.txt</th>
+                        <tr th:each="fileUpload : ${fileUploadList}">
+                            <form method="POST" th:action="@{/file/deleteFile}">
+                                <input id="delete-file-id" name="fileId" type="hidden"
+                                       th:value="${fileUpload.getFileId()}">
+                                <td>
+                                    <input class="form-control-file" id="downloadFile" name="downloadFile" type="file">
+                                    <a class="btn btn-success" target="_blank">View</a>
+                                    <button class="btn btn-danger" type="submit"> Delete</button>
+                                </td>
+                                <th scope="row" th:text="${fileUpload.getFileName()}">ExampleFile.txt</th>
+                            </form>
                         </tr>
                         </tbody>
                     </table>
@@ -112,7 +117,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" th:action="@{/note/saveNote}">
+                                <form method="POST" th:action="@{note/saveNote}">
                                     <input id="note-id" name="noteId" type="hidden">
                                     <div class="form-group">
                                         <label class="col-form-label" for="note-title">Title</label>
@@ -154,14 +159,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <button class="btn btn-success" type="button">Edit</button>
-                                <a class="btn btn-danger">Delete</a>
-                            </td>
-                            <th scope="row">Example Credential URL</th>
-                            <td>Example Credential Username</td>
-                            <td>Example Credential Password</td>
+                        <tr th:each="credential : ${credentialList}">
+                            <form method="POST" th:action="@{/credential/deleteCredential}">
+                                <td>
+                                    <input id="delete-credential-id" name="credentialId" type="hidden"
+                                           th:value="${credential.getCredentialId()}">
+                                    <button class="btn btn-success" type="button"
+                                            th:onclick="showCredentialModal([[${credential.getCredentialId()}]],[[${credential.getUrl()}]],[[${credential.getUsername()}]],[[${credential.getDecryptedPassword()}]])">
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-danger" type="submit"> Delete</button>
+                                </td>
+                                <th scope="row" th:text="${credential.getUrl()}">Example Credential URL</th>
+                                <td th:text="${credential.getUsername()}">Example Credential Username</td>
+                                <td th:text="${credential.getPassword()}">Example Credential Password</td>
+                            </form>
                         </tr>
                         </tbody>
                     </table>
@@ -178,7 +190,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="#" method="POST">
+                                <form action="#" method="POST" th:action="@{/credential/saveCredential}">
                                     <input id="credential-id" name="credentialId" type="hidden">
                                     <div class="form-group">
                                         <label class="col-form-label" for="credential-url">URL</label>

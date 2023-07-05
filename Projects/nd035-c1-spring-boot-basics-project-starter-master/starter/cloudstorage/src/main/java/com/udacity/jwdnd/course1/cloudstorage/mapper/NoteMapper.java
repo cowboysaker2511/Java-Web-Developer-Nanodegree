@@ -12,10 +12,10 @@ public interface NoteMapper {
 
     @Insert("INSERT INTO NOTES(notetitle, notedescription, userid) " +
             "VALUES(#{noteTitle}, #{noteDescription}, #{userId})")
-    int addNote(String noteTitle, String noteDescription, int userId);
+    int addNote(Note note);
 
     @Update("UPDATE NOTES SET notetitle = #{noteTitle}, notedescription = #{noteDescription} WHERE noteid = #{noteId}")
-    int saveNote(int noteId, String noteTitle, String noteDescription, int userId);
+    int updateNote(Note note);
 
     @Delete("DELETE FROM NOTES WHERE noteid = #{noteId}")
     int deleteNoteByNoteId(int noteId);

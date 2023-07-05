@@ -1,15 +1,17 @@
 package com.udacity.jwdnd.course1.cloudstorage.entity;
 
+import com.udacity.jwdnd.course1.cloudstorage.security.service.EncryptionService;
+
 public class Credential {
-    private Integer credentialid;
+    private Integer credentialId;
     private String url;
     private String username;
     private String key;
     private String password;
     private Integer userId;
 
-    public Credential(Integer credentialid, String url, String username, String key, String password, Integer userId) {
-        this.credentialid = credentialid;
+    public Credential(Integer credentialId, String url, String username, String key, String password, Integer userId) {
+        this.credentialId = credentialId;
         this.url = url;
         this.username = username;
         this.key = key;
@@ -17,12 +19,12 @@ public class Credential {
         this.userId = userId;
     }
 
-    public Integer getCredentialid() {
-        return credentialid;
+    public Integer getCredentialId() {
+        return credentialId;
     }
 
-    public void setCredentialid(Integer credentialid) {
-        this.credentialid = credentialid;
+    public void setCredentialId(Integer credentialId) {
+        this.credentialId = credentialId;
     }
 
     public String getUrl() {
@@ -53,6 +55,11 @@ public class Credential {
         return password;
     }
 
+    public String getDecryptedPassword() {
+        EncryptionService encryptionService = new EncryptionService();
+        return encryptionService.decryptValue(this.password, this.key);
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -63,5 +70,17 @@ public class Credential {
 
     public void setUserid(Integer userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Credential{" +
+                "credentialid=" + credentialId +
+                ", url='" + url + '\'' +
+                ", username='" + username + '\'' +
+                ", key='" + key + '\'' +
+                ", password='" + password + '\'' +
+                ", userId=" + userId +
+                '}';
     }
 }
