@@ -25,7 +25,7 @@ public class NoteController {
         int result = 0;
         note.setUserId(token.getUserId());
 
-        if (note.getNoteDescription().length() <= 500) {
+        if (note.getNoteDescription().length() <= 1000) {
             if (note.getNoteId() == null) {
                 //create note
                 result = noteService.addNote(note);
@@ -38,7 +38,7 @@ public class NoteController {
                 model.addAttribute("resultMessage", "Your changes were not saved. ");
             }
         } else {
-            model.addAttribute("resultMessage", "Note description length must be less than 500 characters. ");
+            model.addAttribute("resultMessage", "Note can't be saved as description exceed 1000 characters. ");
         }
 
         return "/result";
