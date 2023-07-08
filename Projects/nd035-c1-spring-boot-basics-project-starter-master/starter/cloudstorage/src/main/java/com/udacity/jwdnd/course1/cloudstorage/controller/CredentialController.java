@@ -1,7 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.entity.Credential;
-import com.udacity.jwdnd.course1.cloudstorage.entity.Note;
 import com.udacity.jwdnd.course1.cloudstorage.security.token.SuperDuperDriveToken;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import org.springframework.security.core.Authentication;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/credential")
@@ -26,37 +23,35 @@ public class CredentialController {
     public String saveCredential(Model model, Credential credential, Authentication authentication) {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
 
+        int result = 0;
         credential.setUserid(token.getUserId());
         credential.setKey(token.getSalt());
-        System.out.println(credential);
         if (credential.getCredentialId() == null) {
             //create credential
-            credentialService.addCredential(credential);
-
-        }
-        else {
+            result = credentialService.addCredential(credential);
+        } else {
             //update credential
-            credentialService.updateCredential(credential);
+            result = credentialService.updateCredential(credential);
         }
 
-        //get credential list
-        List<Credential> credentialList = credentialService.getCredentialListByUserId(token.getUserId());
-        model.addAttribute("credentialList", credentialList);
+        if (result <= 0) {
+            model.addAttribute("resultMessage", "Your changes were not saved.");
+        }
 
-        return "home";
+        return "result";
     }
 
     @PostMapping("/deleteCredential")
     public String deleteNote(Model model, Authentication authentication, Credential credential) {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
-
         //delete credential
-        credentialService.deleteCredentialByCredentialId(credential.getCredentialId());
 
-        //get credential list
-        List<Credential> credentialList = credentialService.getCredentialListByUserId(token.getUserId());
-        model.addAttribute("credentialList", credentialList);
+        int result = 0;
+        result = credentialService.deleteCredentialByCredentialId(credential.getCredentialId());
 
-        return "home";
+        if (result <= 0) {
+            model.addAttribute("resultMessage", "Your changes were not saved.");
+        }
+        return "result";
     }
 }

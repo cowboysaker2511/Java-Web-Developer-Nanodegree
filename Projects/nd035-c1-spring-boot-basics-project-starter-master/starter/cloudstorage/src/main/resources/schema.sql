@@ -7,12 +7,12 @@ CREATE TABLE IF NOT EXISTS USERS (
   lastname VARCHAR(20)
 );
 
-INSERT INTO USERS(username, salt, password, firstname, lastname)
-VALUES('trungvq8',
-'AAAAAAAAAAAAAAAAAAAAAA==',
-'B50dio7CQHgpxwwHj723T3IEWQQVlol29e+g1kSqTc+G8vUVtTWlvo1Tc39PpYGnnobknoj0L5am/DL2D8ZDCRwxFwVxYpzZznqEqIxV6AWPqz1p+tfUPHxjMAVV7Uyl0wdat0kU5L13Klo4UEyVJ7JEKOqvscL1sbnELT6qUxLVXRSqj5YaHFvnV5Y0GWM+UCECd+Tbje7m4XQfLQJBmXnJrOc7OppBixxQOGKLYbqADSWt87JkdDef0oXAS1LcnP8vVpngr2LnvtoYWXoRPZ8QdI9KNagdhQ6wqYJ4X5X3SHx/mpUJ5PPTJuVMEr+E+TmI/ZwjaxFcqAP/quRlog==',
-'Vu',
-'Trung');
+--INSERT INTO USERS(username, salt, password, firstname, lastname)
+--VALUES('trungvq8',
+--'AAAAAAAAAAAAAAAAAAAAAA==',
+--'B50dio7CQHgpxwwHj723T3IEWQQVlol29e+g1kSqTc+G8vUVtTWlvo1Tc39PpYGnnobknoj0L5am/DL2D8ZDCRwxFwVxYpzZznqEqIxV6AWPqz1p+tfUPHxjMAVV7Uyl0wdat0kU5L13Klo4UEyVJ7JEKOqvscL1sbnELT6qUxLVXRSqj5YaHFvnV5Y0GWM+UCECd+Tbje7m4XQfLQJBmXnJrOc7OppBixxQOGKLYbqADSWt87JkdDef0oXAS1LcnP8vVpngr2LnvtoYWXoRPZ8QdI9KNagdhQ6wqYJ4X5X3SHx/mpUJ5PPTJuVMEr+E+TmI/ZwjaxFcqAP/quRlog==',
+--'Vu',
+--'Trung');
 
 CREATE TABLE IF NOT EXISTS NOTES (
     noteid INT PRIMARY KEY auto_increment,

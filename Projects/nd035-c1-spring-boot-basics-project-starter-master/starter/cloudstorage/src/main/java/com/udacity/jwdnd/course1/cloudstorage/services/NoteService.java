@@ -18,15 +18,15 @@ public class NoteService {
         return noteMapper.getNoteListByUserId(userId);
     }
 
-    public void addNote(Note note) {
-        noteMapper.addNote(note);
+    public int addNote(Note note) {
+        return noteMapper.addNote(note);
     }
 
-    public void updateNote(Note note) {
-        noteMapper.updateNote(note);
+    public int updateNote(Note note) {
+        return noteMapper.updateNote(note);
     }
 
-    public void deleteNoteByNoteId(Integer noteId) {
-        noteMapper.deleteNoteByNoteId(noteId);
+    public int deleteNoteByNoteId(Integer noteId) {
+        return noteMapper.deleteNoteByNoteId(noteId);
     }
 }

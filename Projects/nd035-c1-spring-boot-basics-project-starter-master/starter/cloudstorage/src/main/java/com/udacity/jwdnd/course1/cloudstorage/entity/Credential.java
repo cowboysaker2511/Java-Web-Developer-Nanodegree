@@ -55,13 +55,13 @@ public class Credential {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getDecryptedPassword() {
         EncryptionService encryptionService = new EncryptionService();
         return encryptionService.decryptValue(this.password, this.key);
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Integer getUserid() {

@@ -18,15 +18,21 @@ public class FileService {
     public List<FileUpload> getFileListByUserId(Integer userId) {
         return fileMapper.getFileListByUserId(userId);
     }
+
     public FileUpload getFileByFileId(Integer fileId) {
         return fileMapper.getFileByFileId(fileId);
     }
-    public void uploadFile(FileUpload file) {
-        fileMapper.uploadFile(file);
+
+    public FileUpload getFileByUserIdAndFileName(Integer userId, String fileName) {
+        return fileMapper.getFileByUserIdAndFileName(userId, fileName);
     }
 
-    public void deleteFileByFileId(Integer fileId) {
-        fileMapper.deleteFileByFileId(fileId);
+    public int uploadFile(FileUpload file) {
+        return fileMapper.uploadFile(file);
+    }
+
+    public int deleteFileByFileId(Integer fileId) {
+        return fileMapper.deleteFileByFileId(fileId);
     }
 
 }

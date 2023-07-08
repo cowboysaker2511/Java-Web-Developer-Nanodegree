@@ -38,6 +38,7 @@ public class SignUpController {
                 signupError = "There was an error signing you up. Please try again.";
             }
             model.addAttribute("signupSuccess", true);
+
         } else {
             model.addAttribute("signupError", signupError);
         }

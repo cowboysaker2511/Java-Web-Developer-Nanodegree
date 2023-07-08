@@ -1,7 +1,5 @@
 package com.udacity.jwdnd.course1.cloudstorage.entity;
 
-import java.util.Arrays;
-
 public class FileUpload {
     private Integer fileId;
     private String fileName;

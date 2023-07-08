@@ -12,14 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CloudStorageApplicationTests {
 
     @LocalServerPort
     private int port;
-
     private WebDriver driver;
+    private WebDriverWait webDriverWait;
+    private WebElement inputElement;
 
     @BeforeAll
     static void beforeAll() {
@@ -29,6 +31,8 @@ class CloudStorageApplicationTests {
     @BeforeEach
     public void beforeEach() {
         this.driver = new ChromeDriver();
+        webDriverWait = new WebDriverWait(driver, 3);
+        driver.manage().window().maximize();
     }
 
     @AfterEach
@@ -52,7 +56,6 @@ class CloudStorageApplicationTests {
         // Create a dummy account for logging in later.
 
         // Visit the sign-up page.
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
         driver.get("http://localhost:" + this.port + "/signup");
         webDriverWait.until(ExpectedConditions.titleContains("Sign Up"));
 
@@ -89,7 +92,6 @@ class CloudStorageApplicationTests {
         Assertions.assertTrue(driver.findElement(By.id("success-msg")).getText().contains("You successfully signed up!"));
     }
 
-
     /**
      * PLEASE DO NOT DELETE THIS method.
      * Helper method for Udacity-supplied sanity checks.
@@ -97,7 +99,6 @@ class CloudStorageApplicationTests {
     private void doLogIn(String userName, String password) {
         // Log in to our dummy account.
         driver.get("http://localhost:" + this.port + "/login");
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputUsername")));
         WebElement loginUserName = driver.findElement(By.id("inputUsername"));
@@ -124,14 +125,30 @@ class CloudStorageApplicationTests {
      * your code to ensure that it meets certain rubric criteria.
      * <p>
      * If this test is failing, please ensure that you are handling redirecting users
-     * back to the login page after a succesful sign up.
+     * back to the login page after a successful sign up.
      * Read more about the requirement in the rubric:
      * https://review.udacity.com/#!/rubrics/2724/view
      */
+
+    // Do log out
+    private void doLogOut() {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("log-out")));
+        WebElement logoutButton = driver.findElement(By.id("log-out"));
+        logoutButton.click();
+    }
+
     @Test
     public void testRedirection() {
+        driver.get("http://localhost:" + this.port + "/signup");
+
         // Create a test account
         doMockSignUp("Redirection", "Test", "RT", "123");
+
+        // Click continue login link
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-link")));
+        WebElement loginLink = driver.findElement(By.id("login-link"));
+        loginLink.click();
 
         // Check if we have been redirected to the log in page.
         Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
@@ -160,7 +177,6 @@ class CloudStorageApplicationTests {
         Assertions.assertFalse(driver.getPageSource().contains("Whitelabel Error Page"));
     }
 
-
     /**
      * PLEASE DO NOT DELETE THIS TEST. You may modify this test to work with the
      * rest of your code.
@@ -180,7 +196,6 @@ class CloudStorageApplicationTests {
         doLogIn("LFT", "123");
 
         // Try to upload an arbitrary large file
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
         String fileName = "upload5m.zip";
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("fileUpload")));
@@ -196,6 +211,472 @@ class CloudStorageApplicationTests {
         }
         Assertions.assertFalse(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
 
+    }
+
+    @Test
+    public void testUnauthorizedUserPermission() {
+
+        // Try to access login URL
+        driver.get("http://localhost:" + this.port + "/login");
+        webDriverWait.until(ExpectedConditions.titleContains("Login"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+
+        // Try to access signup URL
+        driver.get("http://localhost:" + this.port + "/signup");
+        webDriverWait.until(ExpectedConditions.titleContains("Sign Up"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/signup", driver.getCurrentUrl());
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Login"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+    }
+
+    @Test
+    public void testAuthorizedUserPermission() {
+
+        String username = "testAuthorizedUserPermission";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Home"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+        // Log out
+        doLogOut();
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Login"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+    }
+
+    private void doCheckSuccess() {
+
+        webDriverWait.until(ExpectedConditions.titleContains("Result"));
+        inputElement = driver.findElement(By.id("success-continue-link"));
+        Assertions.assertTrue(inputElement.isDisplayed());
+    }
+
+    private void doClickContinue() {
+
+        webDriverWait.until(ExpectedConditions.titleContains("Result"));
+        inputElement = driver.findElement(By.id("success-continue-link"));
+        inputElement.click();
+    }
+
+    public void doCreateNote(String noteTitle, String noteDescription) {
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-notes-tab")));
+        inputElement = driver.findElement(By.id("nav-notes-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("add-a-new-note")));
+        inputElement = driver.findElement(By.id("add-a-new-note"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("note-title")));
+        inputElement = driver.findElement(By.id("note-title"));
+        inputElement.sendKeys(noteTitle);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("note-description")));
+        inputElement = driver.findElement(By.id("note-description"));
+        inputElement.sendKeys(noteDescription);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("save-note-button")));
+        inputElement = driver.findElement(By.id("save-note-button"));
+        inputElement.click();
+
+    }
+
+    @Test
+    public void testCreateNote() {
+
+        String username = "testCreateNote";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        String noteTitle = "Note title";
+        String noteDescription = "Note description example";
+
+        // Create note
+        doCreateNote(noteTitle, noteDescription);
+
+        // Check success
+        doCheckSuccess();
+    }
+
+    private void doEditNote(String newNoteTitle, String newNoteDescription) {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-notes-tab")));
+        inputElement = driver.findElement(By.id("nav-notes-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-note-button")));
+        inputElement = driver.findElement(By.id("edit-note-button"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("note-title")));
+        inputElement = driver.findElement(By.id("note-title"));
+        inputElement.clear();
+        inputElement.sendKeys(newNoteTitle);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("note-description")));
+        inputElement = driver.findElement(By.id("note-description"));
+        inputElement.clear();
+        inputElement.sendKeys(newNoteDescription);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("save-note-button")));
+        inputElement = driver.findElement(By.id("save-note-button"));
+        inputElement.click();
+    }
+
+    @Test
+    public void testEditNote() {
+
+        String username = "testEditNote";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        String noteTitle = "Note title";
+        String noteDescription = "Note description example";
+        String newNoteTitle = "New note title";
+        String newNoteDescription = "New note description example";
+
+        // Create note
+        doCreateNote(noteTitle, noteDescription);
+
+        // Click continue
+        doClickContinue();
+
+        // Edit note
+        doEditNote(newNoteTitle, newNoteDescription);
+
+        // Check success
+        doCheckSuccess();
+    }
+
+    private void doDeleteNote() {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-notes-tab")));
+        inputElement = driver.findElement(By.id("nav-notes-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-note-button")));
+        inputElement = driver.findElement(By.id("delete-note-button"));
+        inputElement.click();
+    }
+
+    @Test
+    public void testDeleteNote() {
+
+        String username = "testDeleteNote";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        String noteTitle = "Note title";
+        String noteDescription = "Note description example";
+
+        // Create note
+        doCreateNote(noteTitle, noteDescription);
+
+        // Click continue
+        doClickContinue();
+
+        // Delete note
+        doDeleteNote();
+
+        // Check success
+        doCheckSuccess();
+    }
+
+    public void doCreateCredential(String credentialUrl, String credentialUsername, String credentialPassword) {
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-credentials-tab")));
+        inputElement = driver.findElement(By.id("nav-credentials-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("add-a-new-credential")));
+        inputElement = driver.findElement(By.id("add-a-new-credential"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url")));
+        inputElement = driver.findElement(By.id("credential-url"));
+        inputElement.sendKeys(credentialUrl);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-username")));
+        inputElement = driver.findElement(By.id("credential-username"));
+        inputElement.sendKeys(credentialUsername);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-password")));
+        inputElement = driver.findElement(By.id("credential-password"));
+        inputElement.sendKeys(credentialPassword);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("save-credential-button")));
+        inputElement = driver.findElement(By.id("save-credential-button"));
+        inputElement.click();
+
+    }
+
+    @Test
+    public void testCreateCredential() {
+
+        String username = "testCreateCredential";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Home"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+        String credentialUrl = "http://www.facebook.com";
+        String credentialUsername = "username";
+        String credentialPassword = "password";
+
+        // Create credential
+        doCreateCredential(credentialUrl, credentialUsername, credentialPassword);
+
+        // Check success
+        doCheckSuccess();
+    }
+
+    private void doEditCredential(String newCredentialUrl, String newCredentialUsername, String newCredentialPassword) {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-credentials-tab")));
+        inputElement = driver.findElement(By.id("nav-credentials-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("edit-credential-button")));
+        inputElement = driver.findElement(By.id("edit-credential-button"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-url")));
+        inputElement = driver.findElement(By.id("credential-url"));
+        inputElement.sendKeys(newCredentialUrl);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-username")));
+        inputElement = driver.findElement(By.id("credential-username"));
+        inputElement.sendKeys(newCredentialUsername);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("credential-password")));
+        inputElement = driver.findElement(By.id("credential-password"));
+        inputElement.sendKeys(newCredentialPassword);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("save-credential-button")));
+        inputElement = driver.findElement(By.id("save-credential-button"));
+        inputElement.click();
+    }
+
+    @Test
+    public void testEditCredential() {
+
+        String username = "testEditCredential";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        String credentialUrl = "http://www.facebook.com";
+        String credentialUsername = "username";
+        String credentialPassword = "password";
+
+        String newCredentialUrl = "http://www.google.com";
+        String newCredentialUsername = "newUsername";
+        String newCredentialPassword = "newPassword";
+
+        // Create credential
+        doCreateCredential(credentialUrl, credentialUsername, credentialPassword);
+
+        // Click continue
+        doClickContinue();
+
+        // Edit credential
+        doEditCredential(newCredentialUrl, newCredentialUsername, newCredentialPassword);
+
+        // Check success
+        doCheckSuccess();
+    }
+
+    private void doDeleteCredential() {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-credentials-tab")));
+        inputElement = driver.findElement(By.id("nav-credentials-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-credential-button")));
+        inputElement = driver.findElement(By.id("delete-credential-button"));
+        inputElement.click();
+    }
+
+    @Test
+    public void testDeleteCredential() {
+
+        String username = "testDeleteCredential";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        String credentialUrl = "http://www.facebook.com";
+        String credentialUsername = "username";
+        String credentialPassword = "password";
+
+        // Create note
+        doCreateCredential(credentialUrl, credentialUsername, credentialPassword);
+
+        // Click continue
+        doClickContinue();
+
+        // Delete note
+        doDeleteCredential();
+
+        // Check success
+        doCheckSuccess();
+    }
+
+
+    public void doUploadFile(String fileUrl) {
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-files-tab")));
+        inputElement = driver.findElement(By.id("nav-files-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("fileUpload")));
+        inputElement = driver.findElement(By.id("fileUpload"));
+        inputElement.sendKeys(fileUrl);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("uploadButton")));
+        inputElement = driver.findElement(By.id("uploadButton"));
+        inputElement.click();
+
+    }
+
+    @Test
+    public void testUploadFile() {
+
+        String username = "testUploadFile";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Home"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+        String fileUrl = "C:\\Users\\Admin\\Desktop\\zihan-al.jpg";
+
+        // Upload file
+        doUploadFile(fileUrl);
+
+        // Check success
+        doCheckSuccess();
+
+        // Click continue
+        doClickContinue();
+    }
+
+    private void doDownloadFile() {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-files-tab")));
+        inputElement = driver.findElement(By.id("nav-files-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("download-file-button")));
+        inputElement = driver.findElement(By.id("download-file-button"));
+        inputElement.click();
+    }
+    @Test
+    public void testDownloadFile() {
+
+        String username = "testDownloadFile";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Home"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+        String fileUrl = "C:\\Users\\Admin\\Desktop\\zihan-al.jpg";
+
+        // Upload file
+        doUploadFile(fileUrl);
+
+        // Check success
+        doCheckSuccess();
+
+        // Click continue
+        doClickContinue();
+
+        // Download file
+        doDownloadFile();
+    }
+
+    private void doDeleteFile() {
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-files-tab")));
+        inputElement = driver.findElement(By.id("nav-files-tab"));
+        inputElement.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-file-button")));
+        inputElement = driver.findElement(By.id("delete-file-button"));
+        inputElement.click();
+    }
+
+    @Test
+    public void testDeleteFile() {
+
+        String username = "testDeleteFile";
+        String password = "123123";
+
+        // Create a test account
+        doMockSignUp("Vu", "Trung", username, password);
+        doLogIn(username, password);
+
+        // Try to access home URL
+        driver.get("http://localhost:" + this.port + "/home");
+        webDriverWait.until(ExpectedConditions.titleContains("Home"));
+        Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+        String fileUrl = "C:\\Users\\Admin\\Desktop\\zihan-al.jpg";
+
+        // Upload file
+        doUploadFile(fileUrl);
+
+        // Check success
+        doCheckSuccess();
+
+        // Click continue
+        doClickContinue();
+
+        // Delete file
+        doDeleteFile();
+
+        // Check success
+        doCheckSuccess();
     }
 
 

@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/note")
 public class NoteController {
@@ -24,21 +22,21 @@ public class NoteController {
     public String saveNote(Model model, Note note, Authentication authentication) {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
 
+        int result = 0;
         note.setUserId(token.getUserId());
         if (note.getNoteId() == null) {
             //create note
-            noteService.addNote(note);
+            result = noteService.addNote(note);
 
         } else {
             //update note
-            noteService.updateNote(note);
+            result = noteService.updateNote(note);
         }
 
-        //get note list
-        List<Note> noteList = noteService.getNoteListByUserId(token.getUserId());
-        model.addAttribute("noteList", noteList);
-
-        return "home";
+        if (result <= 0) {
+            model.addAttribute("resultMessage", "Your changes were not saved.");
+        }
+        return "result";
     }
 
     @PostMapping("/deleteNote")
@@ -46,12 +44,12 @@ public class NoteController {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
 
         //delete note
-        noteService.deleteNoteByNoteId(note.getNoteId());
+        int result = 0;
+        result = noteService.deleteNoteByNoteId(note.getNoteId());
 
-        //get note list
-        List<Note> noteList = noteService.getNoteListByUserId(token.getUserId());
-        model.addAttribute("noteList", noteList);
-
-        return "home";
+        if (result <= 0) {
+            model.addAttribute("resultMessage", "Your changes were not saved.");
+        }
+        return "result";
     }
 }

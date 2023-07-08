@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/file")
@@ -32,21 +31,29 @@ public class FileController {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
 
         //upload file
+        int result = 0;
         if (!fileUpload.isEmpty()) {
-            try {
-                FileUpload file = new FileUpload(null, fileUpload.getOriginalFilename(), fileUpload.getContentType(),
-                        String.valueOf(fileUpload.getSize()), ((SuperDuperDriveToken) authentication).getUserId(), fileUpload.getBytes());
-                fileService.uploadFile(file);
-            } catch (IOException e) {
-                e.printStackTrace();
+            //check if filename not existed
+            if (fileService.getFileByUserIdAndFileName(token.getUserId(), fileUpload.getOriginalFilename()) == null) {
+                try {
+                    FileUpload file = new FileUpload(null, fileUpload.getOriginalFilename(), fileUpload.getContentType(),
+                            String.valueOf(fileUpload.getSize()), ((SuperDuperDriveToken) authentication).getUserId(), fileUpload.getBytes());
+                    result = fileService.uploadFile(file);
+
+                    if (result <= 0) {
+                        model.addAttribute("resultMessage", "Your changes were not saved.");
+                    }
+                    return "result";
+                } catch (IOException e) {
+                    model.addAttribute("resultMessage", "Your changes were not saved.");
+                }
+            } else {
+                model.addAttribute("resultMessage", "You can't upload two files with the same name.");
+                return "result";
             }
         }
 
-        //get file list
-        List<FileUpload> fileUploadList = fileService.getFileListByUserId(token.getUserId());
-        model.addAttribute("fileUploadList", fileUploadList);
-
-        return "redirect:/home";
+        return "home";
     }
 
     @PostMapping(params = "viewFile")
@@ -65,12 +72,12 @@ public class FileController {
         SuperDuperDriveToken token = (SuperDuperDriveToken) authentication;
 
         //delete file
-        fileService.deleteFileByFileId(fileUpload.getFileId());
+        int result = 0;
+        result = fileService.deleteFileByFileId(fileUpload.getFileId());
 
-        //get file list
-        List<FileUpload> fileUploadList = fileService.getFileListByUserId(token.getUserId());
-        model.addAttribute("fileUploadList", fileUploadList);
-
-        return "home";
+        if (result <= 0) {
+            model.addAttribute("resultMessage", "Your changes were not saved.");
+        }
+        return "result";
     }
 }

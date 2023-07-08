@@ -48,7 +48,7 @@ public class HomeController {
 
             return "home";
         } else {
-            return "login";
+            return "redirect:/login";
         }
     }
 }
