@@ -16,11 +16,11 @@ public class ErrorHandlerController implements ErrorController {
         }else {
             model.addAttribute("goBackLink", "/login");
         }
-       return "error-page";
+       return "/error-page";
     }
 
     @Override
     public String getErrorPath() {
-        return "error";
+        return "/error";
     }
 }

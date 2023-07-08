@@ -21,7 +21,7 @@ public class SignUpController {
 
     @GetMapping
     public String getSignUpPage(Model model) {
-        return "signup";
+        return "/signup";
     }
 
     @PostMapping
@@ -38,12 +38,12 @@ public class SignUpController {
                 signupError = "There was an error signing you up. Please try again.";
             }
             model.addAttribute("signupSuccess", true);
-
+            return "redirect:/login";
         } else {
             model.addAttribute("signupError", signupError);
         }
 
-        return "signup";
+        return "/signup";
     }
 
 }

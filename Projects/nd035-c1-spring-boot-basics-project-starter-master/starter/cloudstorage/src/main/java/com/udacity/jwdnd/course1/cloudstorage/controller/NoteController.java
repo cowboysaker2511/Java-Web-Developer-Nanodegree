@@ -41,7 +41,7 @@ public class NoteController {
             model.addAttribute("resultMessage", "Note description length must be less than 500 characters. ");
         }
 
-        return "result";
+        return "/result";
     }
 
     @PostMapping("/deleteNote")
@@ -55,6 +55,6 @@ public class NoteController {
         if (result <= 0) {
             model.addAttribute("resultMessage", "Your changes were not saved.");
         }
-        return "result";
+        return "/result";
     }
 }

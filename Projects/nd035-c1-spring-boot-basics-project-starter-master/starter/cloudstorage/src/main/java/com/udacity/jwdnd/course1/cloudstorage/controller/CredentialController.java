@@ -38,7 +38,7 @@ public class CredentialController {
             model.addAttribute("resultMessage", "Your changes were not saved.");
         }
 
-        return "result";
+        return "/result";
     }
 
     @PostMapping("/deleteCredential")
@@ -52,6 +52,6 @@ public class CredentialController {
         if (result <= 0) {
             model.addAttribute("resultMessage", "Your changes were not saved.");
         }
-        return "result";
+        return "/result";
     }
 }

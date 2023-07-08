@@ -43,17 +43,17 @@ public class FileController {
                     if (result <= 0) {
                         model.addAttribute("resultMessage", "Your changes were not saved.");
                     }
-                    return "result";
+                    return "/result";
                 } catch (IOException e) {
                     model.addAttribute("resultMessage", "Your changes were not saved.");
                 }
             } else {
                 model.addAttribute("resultMessage", "You can't upload two files with the same name.");
-                return "result";
+                return "/result";
             }
         }
 
-        return "home";
+        return "/home";
     }
 
     @PostMapping(params = "viewFile")
@@ -78,6 +78,6 @@ public class FileController {
         if (result <= 0) {
             model.addAttribute("resultMessage", "Your changes were not saved.");
         }
-        return "result";
+        return "/result";
     }
 }

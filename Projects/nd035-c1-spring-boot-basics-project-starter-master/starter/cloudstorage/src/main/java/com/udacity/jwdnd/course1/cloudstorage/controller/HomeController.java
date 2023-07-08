@@ -46,7 +46,7 @@ public class HomeController {
             List<Credential> credentialList = credentialService.getCredentialListByUserId(token.getUserId());
             model.addAttribute("credentialList", credentialList);
 
-            return "home";
+            return "/home";
         } else {
             return "redirect:/login";
         }

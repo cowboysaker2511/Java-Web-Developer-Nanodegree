@@ -12,8 +12,8 @@ public class LoginController {
     @GetMapping
     public String loginView(Authentication authentication) {
         if (authentication != null) {
-            return "home";
+            return "/home";
         }
-        return "login";
+        return "/login";
     }
 }
