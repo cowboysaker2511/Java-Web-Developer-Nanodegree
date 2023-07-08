@@ -553,14 +553,14 @@ class CloudStorageApplicationTests {
     }
 
 
-    public void doUploadFile(String fileUrl) {
+    public void doUploadFile(String fileName) {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-files-tab")));
         inputElement = driver.findElement(By.id("nav-files-tab"));
         inputElement.click();
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("fileUpload")));
         inputElement = driver.findElement(By.id("fileUpload"));
-        inputElement.sendKeys(fileUrl);
+        inputElement.sendKeys(new File(fileName).getAbsolutePath());
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("uploadButton")));
         inputElement = driver.findElement(By.id("uploadButton"));
@@ -583,16 +583,13 @@ class CloudStorageApplicationTests {
         webDriverWait.until(ExpectedConditions.titleContains("Home"));
         Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
 
-        String fileUrl = "C:\\Users\\Admin\\Desktop\\zihan-al.jpg";
+        String fileName = "image-sample.jpg";
 
         // Upload file
-        doUploadFile(fileUrl);
+        doUploadFile(fileName);
 
         // Check success
         doCheckSuccess();
-
-        // Click continue
-        doClickContinue();
     }
 
     private void doDownloadFile() {
@@ -620,10 +617,10 @@ class CloudStorageApplicationTests {
         webDriverWait.until(ExpectedConditions.titleContains("Home"));
         Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
 
-        String fileUrl = "C:\\Users\\Admin\\Desktop\\zihan-al.jpg";
+        String fileName = "image-sample.jpg";
 
         // Upload file
-        doUploadFile(fileUrl);
+        doUploadFile(fileName);
 
         // Check success
         doCheckSuccess();
