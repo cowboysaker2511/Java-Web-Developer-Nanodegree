@@ -24,18 +24,23 @@ public class NoteController {
 
         int result = 0;
         note.setUserId(token.getUserId());
-        if (note.getNoteId() == null) {
-            //create note
-            result = noteService.addNote(note);
 
+        if (note.getNoteDescription().length() <= 500) {
+            if (note.getNoteId() == null) {
+                //create note
+                result = noteService.addNote(note);
+            } else {
+                //update note
+                result = noteService.updateNote(note);
+            }
+
+            if (result <= 0) {
+                model.addAttribute("resultMessage", "Your changes were not saved. ");
+            }
         } else {
-            //update note
-            result = noteService.updateNote(note);
+            model.addAttribute("resultMessage", "Note description length must be less than 500 characters. ");
         }
 
-        if (result <= 0) {
-            model.addAttribute("resultMessage", "Your changes were not saved.");
-        }
         return "result";
     }
 
