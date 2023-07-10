@@ -29,18 +29,19 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-        //ta sẽ customize lại response
+                 //ta sẽ customize lại response
+                .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false);
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Location API",
-                "This API returns a list of airport locations.",
+                "Dog API",
+                "This API returns a list of dogs.",
                 "1.0",
-                "http://www.udacity.com/tos",
-                new Contact("Kesha Williams", "www.udacity.com", "myeaddress@udacity.com"),
-                "License of API", "http://www.udacity.com/license", Collections.emptyList());
+                "trungvq8",
+                new Contact("Vu Quoc Trung", "www.fpt.com", "trungvq8@fpt.com"),
+                "License of API", "trungvq8@fpt.com", Collections.emptyList());
 
     }
 
