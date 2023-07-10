@@ -2,3 +2,5 @@ Projects/nd035-c1-spring-boot-basics-examples/
 ~$*
 Projects/Examples/nd035-c1-spring-boot-basics-examples/
 ~*.tmp
+~*.class
+*/.idea/*

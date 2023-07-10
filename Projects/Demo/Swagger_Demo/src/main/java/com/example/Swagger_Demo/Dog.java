@@ -1,9 +1,9 @@
 package com.example.Swagger_Demo;
 
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
-//import javax.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Dog {
