@@ -112,7 +112,6 @@ public class CarController {
         /**
          * TODO: Use the Car Service to delete the requested vehicle.
          */
-//        return ResponseEntity.noContent().build();
         carService.delete(id);
         return ResponseEntity.ok().build();
     }
