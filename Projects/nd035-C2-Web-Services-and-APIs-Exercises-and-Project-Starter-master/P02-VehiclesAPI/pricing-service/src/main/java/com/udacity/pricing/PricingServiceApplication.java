@@ -1,7 +1,7 @@
 package com.udacity.pricing;
 
-import com.udacity.pricing.domain.price.Price;
-import com.udacity.pricing.domain.price.PriceRepository;
+import com.udacity.pricing.entity.Price;
+import com.udacity.pricing.repository.PriceRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

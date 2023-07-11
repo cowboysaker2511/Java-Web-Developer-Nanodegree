@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="abf52f35-12f0-47d6-9f02-65c49b433950" name="Default Changelist" comment="" />
-    <ignored path="$PROJECT_DIR$/consuming/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="abf52f35-12f0-47d6-9f02-65c49b433950" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/handler/ExceptionHandlerControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lesson7-documenting/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lesson7-documenting/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/main/java/com/udacity/boogle/maps/BoogleMapsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/main/java/com/udacity/boogle/maps/BoogleMapsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/main/java/com/udacity/boogle/maps/MockAddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/main/java/com/udacity/boogle/maps/MockAddressRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/test/java/com/udacity/boogle/maps/BoogleMapsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/boogle-maps/src/test/java/com/udacity/boogle/maps/BoogleMapsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/PricingServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/PricingServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/api/PricingController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/domain/price/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/entity/Price.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/domain/price/PriceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/repository/PriceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/java/com/udacity/pricing/service/PricingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/test/java/com/udacity/pricing/PricingServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/pricing-service/src/test/java/com/udacity/pricing/PricingServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/util/intellij-java-google-style.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/util/intellij-java-google-style.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/VehiclesApiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/VehiclesApiApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/ApiError.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/ApiError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/CarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/CarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/CarResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/CarResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/ErrorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/api/ErrorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/client/maps/MapsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/client/maps/MapsClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/client/prices/PriceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/client/prices/PriceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/domain/car/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/domain/car/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/domain/car/Details.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/domain/car/Details.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/domain/manufacturer/Manufacturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/domain/manufacturer/Manufacturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/service/CarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/java/com/udacity/vehicles/service/CarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/test/java/com/udacity/vehicles/api/CarControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../nd035-C2-Web-Services-and-APIs-Exercises-and-Project-Starter-master/P02-VehiclesAPI/vehicles-api/src/test/java/com/udacity/vehicles/api/CarControllerTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,42 +53,8 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/consuming/src/main/java/com/example/consuming/entity/Joke.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="2" column="17" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/consuming/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="35" column="21" lean-forward="true" selection-start-line="32" selection-start-column="8" selection-end-line="35" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/consuming/src/main/java/com/example/consuming/ConsumingApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-              <folding>
-                <element signature="e#660#661#0" expanded="true" />
-                <element signature="e#722#723#0" expanded="true" />
-                <element signature="e#795#796#0" expanded="true" />
-                <element signature="e#824#825#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -63,6 +69,7 @@
     <option name="width" value="1919" />
     <option name="height" value="1077" />
   </component>
+  <component name="ProjectId" id="2SQvSZ0jV2EsKzWwKOMABcAb7BX" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -159,6 +166,10 @@
       </pane>
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -171,19 +182,18 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConsumingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="consuming" />
       <extension name="coverage">
@@ -203,6 +213,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -214,6 +225,7 @@
       <option name="presentableId" value="Default" />
       <updated>1561927728663</updated>
       <workItem from="1561927730088" duration="1095000" />
+      <workItem from="1689091620908" duration="330000" />
     </task>
     <servers />
   </component>
@@ -260,7 +272,7 @@
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/consuming/src/main/resources/application.properties">
