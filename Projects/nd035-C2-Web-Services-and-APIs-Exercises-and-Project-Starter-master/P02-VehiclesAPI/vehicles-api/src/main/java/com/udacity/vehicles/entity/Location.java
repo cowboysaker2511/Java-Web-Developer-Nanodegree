@@ -1,4 +1,4 @@
-package com.udacity.vehicles.domain;
+package com.udacity.vehicles.entity;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;

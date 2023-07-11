@@ -1,12 +1,12 @@
 package com.udacity.vehicles;
 
-import com.udacity.vehicles.domain.Condition;
-import com.udacity.vehicles.domain.Location;
-import com.udacity.vehicles.domain.car.Car;
-import com.udacity.vehicles.domain.car.CarRepository;
-import com.udacity.vehicles.domain.car.Details;
-import com.udacity.vehicles.domain.manufacturer.Manufacturer;
-import com.udacity.vehicles.domain.manufacturer.ManufacturerRepository;
+import com.udacity.vehicles.entity.Condition;
+import com.udacity.vehicles.entity.Location;
+import com.udacity.vehicles.entity.Car;
+import com.udacity.vehicles.repository.CarRepository;
+import com.udacity.vehicles.entity.Details;
+import com.udacity.vehicles.entity.Manufacturer;
+import com.udacity.vehicles.repository.ManufacturerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;

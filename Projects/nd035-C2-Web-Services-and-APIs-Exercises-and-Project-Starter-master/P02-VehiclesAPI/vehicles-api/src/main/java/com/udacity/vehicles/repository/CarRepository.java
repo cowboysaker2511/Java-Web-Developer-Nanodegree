@@ -1,5 +1,6 @@
-package com.udacity.vehicles.domain.car;
+package com.udacity.vehicles.repository;
 
+import com.udacity.vehicles.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

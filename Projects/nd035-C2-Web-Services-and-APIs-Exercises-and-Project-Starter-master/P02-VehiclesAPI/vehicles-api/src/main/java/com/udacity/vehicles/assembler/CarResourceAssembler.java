@@ -1,6 +1,7 @@
-package com.udacity.vehicles.api;
+package com.udacity.vehicles.assembler;
 
-import com.udacity.vehicles.domain.car.Car;
+import com.udacity.vehicles.controller.CarController;
+import com.udacity.vehicles.entity.Car;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;

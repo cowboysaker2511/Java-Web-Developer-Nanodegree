@@ -1,6 +1,6 @@
 package com.udacity.vehicles.client.maps;
 
-import com.udacity.vehicles.domain.Location;
+import com.udacity.vehicles.entity.Location;
 import java.util.Objects;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

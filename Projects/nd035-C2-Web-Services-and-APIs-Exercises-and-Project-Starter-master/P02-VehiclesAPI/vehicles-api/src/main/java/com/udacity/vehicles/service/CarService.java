@@ -1,9 +1,10 @@
 package com.udacity.vehicles.service;
 
 import com.udacity.vehicles.client.prices.Price;
-import com.udacity.vehicles.domain.Location;
-import com.udacity.vehicles.domain.car.Car;
-import com.udacity.vehicles.domain.car.CarRepository;
+import com.udacity.vehicles.entity.Location;
+import com.udacity.vehicles.entity.Car;
+import com.udacity.vehicles.repository.CarRepository;
+import com.udacity.vehicles.exception.CarNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

@@ -1,8 +1,9 @@
-package com.udacity.vehicles.api;
+package com.udacity.vehicles.exception;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.hateoas.VndErrors;
+
+import com.udacity.vehicles.exception.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

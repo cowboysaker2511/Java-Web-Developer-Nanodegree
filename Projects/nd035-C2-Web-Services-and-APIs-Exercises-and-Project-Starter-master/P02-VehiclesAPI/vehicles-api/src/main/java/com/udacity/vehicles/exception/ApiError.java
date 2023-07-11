@@ -1,4 +1,4 @@
-package com.udacity.vehicles.api;
+package com.udacity.vehicles.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;

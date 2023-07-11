@@ -1,6 +1,6 @@
-package com.udacity.vehicles.domain.car;
+package com.udacity.vehicles.entity;
 
-import com.udacity.vehicles.domain.manufacturer.Manufacturer;
+import com.udacity.vehicles.entity.Manufacturer;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
