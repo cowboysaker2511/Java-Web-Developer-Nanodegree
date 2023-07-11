@@ -1,10 +1,10 @@
 package com.udacity.vehicles.service;
 
 import com.udacity.vehicles.client.prices.Price;
-import com.udacity.vehicles.entity.Location;
 import com.udacity.vehicles.entity.Car;
-import com.udacity.vehicles.repository.CarRepository;
+import com.udacity.vehicles.entity.Location;
 import com.udacity.vehicles.exception.CarNotFoundException;
+import com.udacity.vehicles.repository.CarRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -92,18 +92,17 @@ public class CarService {
      * @return the new/updated car is stored in the repository
      */
     public Car save(Car car) {
-//        //Update car
-//        if (car.getId() != null) {
-//            return repository.findById(car.getId())
-//                    .map(carToBeUpdated -> {
-//                        carToBeUpdated.setDetails(car.getDetails());
-//                        carToBeUpdated.setLocation(car.getLocation());
-//                        return repository.save(carToBeUpdated);
-//                    }).get();
-//        }
+        //Update car
+        if (car.getId() != null) {
+            repository.findById(car.getId())
+                    .map(carToBeUpdated -> {
+                        carToBeUpdated.setDetails(car.getDetails());
+                        carToBeUpdated.setLocation(car.getLocation());
+                        return repository.save(carToBeUpdated);
+                    });
+        }
 
         //Create car
-        car.setId(null);
         return repository.save(car);
     }
 
