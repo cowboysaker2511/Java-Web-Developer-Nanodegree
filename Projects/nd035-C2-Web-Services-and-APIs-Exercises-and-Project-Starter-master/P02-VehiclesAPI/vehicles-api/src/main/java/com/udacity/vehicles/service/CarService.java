@@ -19,6 +19,7 @@ import java.util.Optional;
 @Service
 public class CarService {
 
+    RestTemplate restTemplate = new RestTemplate();
     private final CarRepository repository;
 
     public CarService(CarRepository repository) {
@@ -35,7 +36,29 @@ public class CarService {
      * @return a list of all vehicles in the CarRepository
      */
     public List<Car> list() {
-        return repository.findAll();
+        List<Car> all = repository.findAll();
+        all.stream().forEach(car -> {
+            //get price
+            getCarPrice(car);
+            //get location
+            getCarLocation(car);
+        });
+
+        return all;
+    }
+
+    private void getCarPrice(Car car) {
+        Price price = restTemplate.getForObject("http://localhost:8082/prices/" + car.getId(), Price.class);
+        car.setPrice(price.getFullPrice());
+    }
+
+    private void getCarLocation(Car car) {
+        Double lat = car.getLocation().getLat();
+        Double lon = car.getLocation().getLon();
+        Location location = restTemplate.getForObject("http://localhost:9191/maps?lat=" + lat + "&lon=" + lon, Location.class);
+        location.setLat(lat);
+        location.setLon(lon);
+        car.setLocation(location);
     }
 
     /**
@@ -61,11 +84,8 @@ public class CarService {
          * Note: The car class file uses @transient, meaning you will need to call
          *   the pricing service each time to get the price.
          */
-        RestTemplate restTemplate = new RestTemplate();
-        Price price = restTemplate.getForObject("http://localhost:8082/prices/" + id, Price.class);
-
         Car car = byId.get();
-        car.setPrice(price.getPrice() + " " + price.getCurrency());
+        getCarPrice(car);
 
         /**
          * TODO: Use the Maps Web client you create in `VehiclesApiApplication`
@@ -75,12 +95,7 @@ public class CarService {
          * Note: The Location class file also uses @transient for the address,
          * meaning the Maps service needs to be called each time for the address.
          */
-        Double lat = car.getLocation().getLat();
-        Double lon = car.getLocation().getLon();
-        Location location = restTemplate.getForObject("http://localhost:9191/maps?lat=" + lat + "&lon=" + lon, Location.class);
-        location.setLat(lat);
-        location.setLon(lon);
-        car.setLocation(location);
+        getCarLocation(car);
 
         return car;
     }

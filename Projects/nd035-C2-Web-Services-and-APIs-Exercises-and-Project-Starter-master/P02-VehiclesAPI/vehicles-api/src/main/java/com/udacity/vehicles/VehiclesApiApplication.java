@@ -53,7 +53,7 @@ public class VehiclesApiApplication {
             carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.NEW,
                     new Details("Body 1", "Model 1", manufacturerRepository.findById(100).get(), 4, "Fuel Type 1", "Engine 1", 1000, 2021, 2021, "Black"),
                     new Location(1.0, 1.0), "1000 USD"));
-            carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.NEW,
+            carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.USED,
                     new Details("Body 2", "Model 2", manufacturerRepository.findById(101).get(), 5, "Fuel Type 2", "Engine 2", 2000, 2022, 2022, "Red"),
                     new Location(2.0, 2.0), "2000 USD"));
         };
