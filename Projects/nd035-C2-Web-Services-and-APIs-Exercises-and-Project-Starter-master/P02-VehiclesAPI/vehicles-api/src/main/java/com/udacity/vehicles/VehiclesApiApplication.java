@@ -4,6 +4,7 @@ import com.udacity.vehicles.domain.Condition;
 import com.udacity.vehicles.domain.Location;
 import com.udacity.vehicles.domain.car.Car;
 import com.udacity.vehicles.domain.car.CarRepository;
+import com.udacity.vehicles.domain.car.Details;
 import com.udacity.vehicles.domain.manufacturer.Manufacturer;
 import com.udacity.vehicles.domain.manufacturer.ManufacturerRepository;
 import org.modelmapper.ModelMapper;
@@ -15,7 +16,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.reactive.function.client.WebClient;
-import com.udacity.vehicles.domain.car.Details;
+
 import java.time.LocalDateTime;
 
 /**
@@ -34,6 +35,7 @@ public class VehiclesApiApplication {
 
     /**
      * Initializes the car manufacturers available to the Vehicle API.
+     *
      * @param manufacturerRepository where the manufacturer information persists.
      * @return the car manufacturers to add to the related manufacturerRepository
      */
@@ -48,11 +50,11 @@ public class VehiclesApiApplication {
             manufacturerRepository.save(new Manufacturer(104, "Dodge"));
 
             //init Car database
-            carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.NEW, new Details("Body 1",
-                    "Model 1", manufacturerRepository.findById(100).get()),
+            carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.NEW,
+                    new Details("Body 1", "Model 1", manufacturerRepository.findById(100).get(), 4, "Fuel Type 1", "Engine 1", 1000, 2021, 2021, "Black"),
                     new Location(1.0, 1.0), "1000 USD"));
-            carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.NEW, new Details("Body 2",
-                    "Model 2", manufacturerRepository.findById(100).get()),
+            carRepository.save(new Car(LocalDateTime.now(), LocalDateTime.now(), Condition.NEW,
+                    new Details("Body 2", "Model 2", manufacturerRepository.findById(101).get(), 5, "Fuel Type 2", "Engine 2", 2000, 2022, 2022, "Red"),
                     new Location(2.0, 2.0), "2000 USD"));
         };
     }
@@ -64,20 +66,22 @@ public class VehiclesApiApplication {
 
     /**
      * Web Client for the maps (location) API
+     *
      * @param endpoint where to communicate for the maps API
      * @return created maps endpoint
      */
-    @Bean(name="maps")
+    @Bean(name = "maps")
     public WebClient webClientMaps(@Value("${maps.endpoint}") String endpoint) {
         return WebClient.create(endpoint);
     }
 
     /**
      * Web Client for the pricing API
+     *
      * @param endpoint where to communicate for the pricing API
      * @return created pricing endpoint
      */
-    @Bean(name="pricing")
+    @Bean(name = "pricing")
     public WebClient webClientPricing(@Value("${pricing.endpoint}") String endpoint) {
         return WebClient.create(endpoint);
     }
