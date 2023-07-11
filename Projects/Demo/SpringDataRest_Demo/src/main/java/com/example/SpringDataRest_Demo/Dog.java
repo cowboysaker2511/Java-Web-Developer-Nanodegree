@@ -2,9 +2,9 @@ package com.example.SpringDataRest_Demo;
 
 
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
-//import javax.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Dog {
