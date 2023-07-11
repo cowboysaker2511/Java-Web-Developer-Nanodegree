@@ -7,12 +7,12 @@ import java.util.List;
  * Declares methods to return errors and other messages from the API.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class ApiError {
+public class ApiError {
 
     private final String message;
     private final List<String> errors;
 
-    ApiError(String message, List<String> errors) {
+    public ApiError(String message, List<String> errors) {
         this.message = message;
         this.errors = errors;
     }

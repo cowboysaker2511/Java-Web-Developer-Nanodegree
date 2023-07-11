@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implements the car service create, read, update or delete
@@ -48,11 +49,10 @@ public class CarService {
          *   If it does not exist, throw a CarNotFoundException
          *   Remove the below code as part of your implementation.
          */
-        Car car = repository.findById(id).get();
-        if (car == null) {
+        Optional<Car> byId = repository.findById(id);
+        if (byId.isEmpty()) {
             throw new CarNotFoundException("Car ID is not found.");
         }
-
         /**
          * TODO: Use the Pricing Web client you create in `VehiclesApiApplication`
          *   to get the price based on the `id` input'
@@ -62,6 +62,8 @@ public class CarService {
          */
         RestTemplate restTemplate = new RestTemplate();
         Price price = restTemplate.getForObject("http://localhost:8082/prices/" + id, Price.class);
+
+        Car car = byId.get();
         car.setPrice(price.getPrice() + " " + price.getCurrency());
 
         /**
@@ -74,7 +76,7 @@ public class CarService {
          */
         Double lat = car.getLocation().getLat();
         Double lon = car.getLocation().getLon();
-        Location location = restTemplate.getForObject("http://localhost:9191/maps?lat="+ lat +"&lon=" + lon, Location.class);
+        Location location = restTemplate.getForObject("http://localhost:9191/maps?lat=" + lat + "&lon=" + lon, Location.class);
         location.setLat(lat);
         location.setLon(lon);
         car.setLocation(location);
