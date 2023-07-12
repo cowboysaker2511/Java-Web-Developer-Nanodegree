@@ -23,4 +23,11 @@ public class Delivery {
 
     public Delivery() {
     }
+
+    public Delivery(String recipientName, String address, LocalDateTime deliveryDateTime, Boolean completed) {
+        this.recipientName = recipientName;
+        this.address = address;
+        this.deliveryDateTime = deliveryDateTime;
+        this.completed = completed;
+    }
 }

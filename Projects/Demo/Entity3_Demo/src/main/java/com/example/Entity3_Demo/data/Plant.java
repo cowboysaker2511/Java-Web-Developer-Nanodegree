@@ -12,18 +12,65 @@ import java.math.BigDecimal;
 public abstract class Plant {
     @Id
     @GeneratedValue
-    @JsonView(PlantJSON.class)
     private Long id;
     @Nationalized
+    @JsonView(PlantJSON.Public.class)
     private String name;
     @Column(precision = 12, scale = 4)
+    @JsonView(PlantJSON.Public.class)
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "delivery_id")
-    @JsonView(PlantJSON.class)
     private Delivery delivery;
 
     public Plant() {
     }
 
+    public Plant(String name, BigDecimal price, Delivery delivery) {
+        this.name = name;
+        this.price = price;
+        this.delivery = delivery;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    @Override
+    public String toString() {
+        return "Plant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", delivery=" + delivery +
+                '}';
+    }
 }

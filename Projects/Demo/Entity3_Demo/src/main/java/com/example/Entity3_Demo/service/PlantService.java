@@ -13,7 +13,7 @@ public class PlantService {
         this.plantRepository = plantRepository;
     }
 
-    public Plant getPlantByName(String name) {
-        return plantRepository.findByName(name);
+    public Plant getPlantById(Long id) {
+        return plantRepository.findById(id).get();
     }
 }
