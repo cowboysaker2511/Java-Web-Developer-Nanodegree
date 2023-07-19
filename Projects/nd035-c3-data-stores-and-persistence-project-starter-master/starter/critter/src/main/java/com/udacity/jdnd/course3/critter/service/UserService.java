@@ -58,19 +58,22 @@ public class UserService {
     }
 
     public List<EmployeeDTO> findEmployeesForService(EmployeeRequestDTO employeeDTO) {
-        List<Employee> employeeList = employeeRepository.findDistinctByDaysAvailableInAndSkillsIn(
-                new HashSet<>(Arrays.asList(employeeDTO.getDate().getDayOfWeek())),
-                employeeDTO.getSkills());
+        List<Employee> employeeList = employeeRepository.findByDaysAvailableIn(
+                new HashSet<>(Arrays.asList(employeeDTO.getDate().getDayOfWeek())));
 
         List<EmployeeDTO> employeeDTOS = new ArrayList<>();
         employeeList.stream().forEach((employee -> {
-            employeeDTOS.add(new EmployeeDTO(employee));
+            if (employee.getSkills().containsAll(employeeDTO.getSkills())) {
+                employeeDTOS.add(new EmployeeDTO(employee));
+            }
         }));
         return employeeDTOS;
     }
 
     public CustomerDTO getOwnerByPet(long petId) {
         Customer byPetId = customerRepository.findByPetsId(petId);
-        return new CustomerDTO(byPetId);
+        CustomerDTO customerDTO = new CustomerDTO(byPetId);
+        System.out.println(customerDTO);
+        return customerDTO;
     }
 }
