@@ -5,6 +5,8 @@ import com.udacity.jdnd.course3.critter.entity.enumerate.EmployeeSkill;
 import lombok.*;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,5 +29,13 @@ public class EmployeeDTO {
         this.name = employee.getName();
         this.skills = employee.getSkills();
         this.daysAvailable = employee.getDaysAvailable();
+    }
+
+    public static List<EmployeeDTO> convertToDTOList(List<Employee> employeeList) {
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+        employeeList.stream().forEach((employee) -> {
+            employeeDTOS.add(new EmployeeDTO(employee));
+        });
+        return employeeDTOS;
     }
 }

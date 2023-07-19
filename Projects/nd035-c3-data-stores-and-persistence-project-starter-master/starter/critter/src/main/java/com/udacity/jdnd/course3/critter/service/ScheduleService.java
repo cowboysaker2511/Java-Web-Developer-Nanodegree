@@ -31,32 +31,32 @@ public class ScheduleService {
         this.customerRepository = customerRepository;
     }
 
-    public ScheduleDTO createSchedule(ScheduleDTO scheduleDTO) {
+    public Schedule createSchedule(ScheduleDTO scheduleDTO) {
         Schedule schedule = new Schedule();
         schedule.setDate(scheduleDTO.getDate());
         schedule.setActivities(scheduleDTO.getActivities());
         schedule.setPets(petRepository.findAllById(scheduleDTO.getPetIds()));
         schedule.setEmployees(employeeRepository.findAllById(scheduleDTO.getEmployeeIds()));
         Schedule save = scheduleRepository.save(schedule);
-        return new ScheduleDTO(save);
+        return save;
     }
 
-    public List<ScheduleDTO> getAllSchedules() {
+    public List<Schedule> getAllSchedules() {
         List<Schedule> scheduleList = scheduleRepository.findAll();
 
-        return convertToDTOList(scheduleList);
+        return scheduleList;
     }
 
-    public List<ScheduleDTO> getScheduleForPet(long petId) {
+    public List<Schedule> getScheduleForPet(long petId) {
         List<Schedule> scheduleList = scheduleRepository.findScheduleByPetsId(petId);
 
-        return convertToDTOList(scheduleList);
+        return scheduleList;
     }
 
-    public List<ScheduleDTO> getScheduleForEmployee(long employeeId) {
+    public List<Schedule> getScheduleForEmployee(long employeeId) {
         List<Schedule> scheduleList = scheduleRepository.findScheduleByEmployeesId(employeeId);
 
-        return convertToDTOList(scheduleList);
+        return scheduleList;
     }
 
     public List<ScheduleDTO> getScheduleForCustomer(long customerId) {
@@ -80,12 +80,4 @@ public class ScheduleService {
         return scheduleDTOS;
     }
 
-    List<ScheduleDTO> convertToDTOList(List<Schedule> listSchedule) {
-        List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
-        listSchedule.stream().forEach((schedule) -> {
-            scheduleDTOS.add(new ScheduleDTO(schedule));
-        });
-
-        return scheduleDTOS;
-    }
 }

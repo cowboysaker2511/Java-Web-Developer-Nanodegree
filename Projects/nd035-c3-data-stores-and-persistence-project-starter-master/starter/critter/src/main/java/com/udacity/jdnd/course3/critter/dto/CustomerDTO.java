@@ -36,4 +36,12 @@ public class CustomerDTO {
         }
         this.petIds = petIds;
     }
+
+    public static List<CustomerDTO> convertToDTOList(List<Customer> customerList) {
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        customerList.stream().forEach((customer) -> {
+            customerDTOS.add(new CustomerDTO(customer));
+        });
+        return customerDTOS;
+    }
 }

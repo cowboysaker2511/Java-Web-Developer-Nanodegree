@@ -25,21 +25,16 @@ public class UserService {
         this.employeeRepository = employeeRepository;
     }
 
-    public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
+    public Customer saveCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer(customerDTO);
         Customer save = customerRepository.save(customer);
-        return new CustomerDTO(save);
+        return save;
     }
 
-    public List<CustomerDTO> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         List<Customer> all = customerRepository.findAll();
 
-        List<CustomerDTO> customerDTOS = new ArrayList<>();
-        all.stream().forEach((customer) -> {
-            CustomerDTO e = new CustomerDTO(customer);
-            customerDTOS.add(e);
-        });
-        return customerDTOS;
+        return all;
     }
 
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
@@ -48,7 +43,7 @@ public class UserService {
         return new EmployeeDTO(save);
     }
 
-    public EmployeeDTO getEmployee(long employeeId) {
+    public Employee getEmployee(long employeeId) {
         Employee employee = employeeRepository.getOne(employeeId);
 
         //check not found
@@ -56,10 +51,10 @@ public class UserService {
             throw new NotFoundException("Employee not found.");
         }
 
-        return new EmployeeDTO(employee);
+        return employee;
     }
 
-    public void setAvailability(Set<DayOfWeek> daysAvailable, long employeeId) {
+    public Employee setAvailability(Set<DayOfWeek> daysAvailable, long employeeId) {
         Employee employee = employeeRepository.getOne(employeeId);
 
         //check not found
@@ -68,30 +63,30 @@ public class UserService {
         }
 
         employee.setDaysAvailable(daysAvailable);
-        employeeRepository.save(employee);
+        Employee save = employeeRepository.save(employee);
+        return save;
     }
 
-    public List<EmployeeDTO> findEmployeesForService(EmployeeRequestDTO employeeDTO) {
+    public List<Employee> findEmployeesForService(EmployeeRequestDTO employeeDTO) {
         List<Employee> employeeList = employeeRepository.findByDaysAvailableIn(
                 new HashSet<>(Arrays.asList(employeeDTO.getDate().getDayOfWeek())));
 
-        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+        List<Employee> employeeExpectedList = new ArrayList<>();
         employeeList.stream().forEach((employee -> {
             if (employee.getSkills().containsAll(employeeDTO.getSkills())) {
-                employeeDTOS.add(new EmployeeDTO(employee));
+                employeeExpectedList.add(employee);
             }
         }));
-        return employeeDTOS;
+        return employeeExpectedList;
     }
 
-    public CustomerDTO getOwnerByPet(long petId) {
+    public Customer getOwnerByPet(long petId) {
         Customer customer = customerRepository.findByPetsId(petId);
 
         //check not found
         if (customer == null) {
             throw new NotFoundException("Customer not found.");
         }
-        CustomerDTO customerDTO = new CustomerDTO(customer);
-        return customerDTO;
+        return customer;
     }
 }

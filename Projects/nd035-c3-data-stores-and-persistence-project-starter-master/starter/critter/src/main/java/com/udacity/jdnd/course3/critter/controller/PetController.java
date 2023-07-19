@@ -20,21 +20,21 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        return petService.savePet(petDTO);
+        return new PetDTO(petService.savePet(petDTO));
     }
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
-        return petService.getPet(petId);
+        return new PetDTO(petService.getPet(petId));
     }
 
     @GetMapping
     public List<PetDTO> getPets() {
-        return petService.getPets();
+        return PetDTO.convertToDTOList(petService.getPets());
     }
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        return petService.getPetsByOwner(ownerId);
+        return PetDTO.convertToDTOList(petService.getPetsByOwner(ownerId));
     }
 }

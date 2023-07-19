@@ -5,6 +5,8 @@ import com.udacity.jdnd.course3.critter.entity.enumerate.PetType;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the form that pet request and response data takes. Does not map
@@ -30,5 +32,13 @@ public class PetDTO {
         this.ownerId = pet.getCustomer().getId();
         this.birthDate = pet.getBirthDate();
         this.notes = pet.getNotes();
+    }
+
+   public static List<PetDTO> convertToDTOList(List<Pet> petList) {
+        List<PetDTO> petDTOS = new ArrayList<>();
+        petList.stream().forEach((pet) -> {
+            petDTOS.add(new PetDTO(pet));
+        });
+        return petDTOS;
     }
 }

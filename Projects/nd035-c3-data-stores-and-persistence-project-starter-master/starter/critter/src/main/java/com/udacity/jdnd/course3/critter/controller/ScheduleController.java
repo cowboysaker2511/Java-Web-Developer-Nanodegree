@@ -20,22 +20,22 @@ public class ScheduleController {
 
     @PostMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
-        return scheduleService.createSchedule(scheduleDTO);
+        return new ScheduleDTO(scheduleService.createSchedule(scheduleDTO));
     }
 
     @GetMapping
     public List<ScheduleDTO> getAllSchedules() {
-        return scheduleService.getAllSchedules();
+        return ScheduleDTO.convertToDTOList(scheduleService.getAllSchedules());
     }
 
     @GetMapping("/pet/{petId}")
     public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId) {
-        return scheduleService.getScheduleForPet(petId);
+        return ScheduleDTO.convertToDTOList(scheduleService.getScheduleForPet(petId));
     }
 
     @GetMapping("/employee/{employeeId}")
     public List<ScheduleDTO> getScheduleForEmployee(@PathVariable long employeeId) {
-        return scheduleService.getScheduleForEmployee(employeeId);
+        return ScheduleDTO.convertToDTOList(scheduleService.getScheduleForEmployee(employeeId));
     }
 
     @GetMapping("/customer/{customerId}")

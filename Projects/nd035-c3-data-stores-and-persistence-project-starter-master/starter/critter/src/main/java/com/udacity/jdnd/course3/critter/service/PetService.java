@@ -23,7 +23,7 @@ public class PetService {
         this.customerRepository = customerRepository;
     }
 
-    public PetDTO savePet(PetDTO petDTO) {
+    public Pet savePet(PetDTO petDTO) {
         Pet pet = new Pet(petDTO);
         Customer customer = customerRepository.getOne(petDTO.getOwnerId());
 
@@ -37,10 +37,10 @@ public class PetService {
         pet.setCustomer(customer);
 
         Pet save = petRepository.save(pet);
-        return new PetDTO(save);
+        return save;
     }
 
-    public PetDTO getPet(long petId) {
+    public Pet getPet(long petId) {
         Pet pet = petRepository.getOne(petId);
 
         //check not found
@@ -48,27 +48,20 @@ public class PetService {
             throw new NotFoundException("Pet not found.");
         }
 
-        return new PetDTO(pet);
+        return pet;
     }
 
-    public List<PetDTO> getPets() {
+    public List<Pet> getPets() {
         List<Pet> petList = petRepository.findAll();
 
-        return convertToDTOList(petList);
+        return petList;
     }
 
-    public List<PetDTO> getPetsByOwner(long ownerId) {
+    public List<Pet> getPetsByOwner(long ownerId) {
         List<Pet> petList = petRepository.findPetByCustomerId(ownerId);
 
-        return convertToDTOList(petList);
+        return petList;
     }
 
 
-    List<PetDTO> convertToDTOList(List<Pet> listPet) {
-        List<PetDTO> petDTOS = new ArrayList<>();
-        listPet.stream().forEach((pet) -> {
-            petDTOS.add(new PetDTO(pet));
-        });
-        return petDTOS;
-    }
 }

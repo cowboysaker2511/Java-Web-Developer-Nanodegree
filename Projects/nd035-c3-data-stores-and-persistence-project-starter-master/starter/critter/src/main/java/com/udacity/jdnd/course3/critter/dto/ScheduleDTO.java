@@ -40,4 +40,13 @@ public class ScheduleDTO {
         this.date = schedule.getDate();
         this.activities = schedule.getActivities();
     }
+
+    public static List<ScheduleDTO> convertToDTOList(List<Schedule> scheduleList) {
+        List<ScheduleDTO> scheduleDTOS = new ArrayList<>();
+        scheduleList.stream().forEach((schedule) -> {
+            scheduleDTOS.add(new ScheduleDTO(schedule));
+        });
+
+        return scheduleDTOS;
+    }
 }

@@ -27,17 +27,17 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        return userService.saveCustomer(customerDTO);
+        return new CustomerDTO(userService.saveCustomer(customerDTO));
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers() {
-        return userService.getAllCustomers();
+        return CustomerDTO.convertToDTOList(userService.getAllCustomers());
     }
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId) {
-        return userService.getOwnerByPet(petId);
+        return new CustomerDTO(userService.getOwnerByPet(petId));
     }
 
     @PostMapping("/employee")
@@ -47,17 +47,17 @@ public class UserController {
 
     @GetMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        return userService.getEmployee(employeeId);
+        return new EmployeeDTO(userService.getEmployee(employeeId));
     }
 
     @PutMapping("/employee/{employeeId}")
-    public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        userService.setAvailability(daysAvailable, employeeId);
+    public EmployeeDTO setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
+        return new EmployeeDTO(userService.setAvailability(daysAvailable, employeeId));
     }
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        return userService.findEmployeesForService(employeeDTO);
+        return EmployeeDTO.convertToDTOList(userService.findEmployeesForService(employeeDTO));
     }
 
 }
