@@ -4,3 +4,5 @@ Projects/Examples/nd035-c1-spring-boot-basics-examples/
 ~*.tmp
 ~*.class
 */.idea/*
+*.xml
+*.iml

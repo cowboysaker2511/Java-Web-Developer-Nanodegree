@@ -38,7 +38,7 @@ public class InjectDemo {
         bCryptPasswordEncoder = Mockito.mock(BCryptPasswordEncoder.class);
         userRepository = Mockito.mock(UserRepository.class);
 
-        //inject mock object dependency vào object gốc
+        //inject mock object dependency vào object target
         injectObject(userController, "cartRepository", cartRepository);
         injectObject(userController, "bCryptPasswordEncoder", bCryptPasswordEncoder);
         injectObject(userController, "userRepository", userRepository);
@@ -64,10 +64,11 @@ public class InjectDemo {
         assertEquals(encodedPassword, user.getPassword());
     }
 
-    public void injectObject(Object target, String fieldname, Object toInject) {
+    public void injectObject(Object target, String fieldName, Object toInject) {
         try {
-            Field field = target.getClass().getDeclaredField(fieldname);
+            Field field = target.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
+            //inject dependency vào object target
             field.set(target, toInject);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
