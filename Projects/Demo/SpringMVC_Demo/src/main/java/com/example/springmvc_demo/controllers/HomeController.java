@@ -10,7 +10,7 @@ import java.util.Arrays;
 @Controller
 public class HomeController {
 
-    @RequestMapping("/home")
+    @RequestMapping("")
     public String gethomePage(Model model) {
         model.addAttribute("messages", Arrays.asList("Hello", "Hi", "Goodbye"));
         return "home";
