@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.logger.CartControllerLogger;
+import com.example.demo.logger.OrderControllerLogger;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.UserOrder;
@@ -11,17 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.demo.Status.FAIL;
+
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
-
+    private OrderControllerLogger logger = new OrderControllerLogger();
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private OrderRepository orderRepository;
-
 
     @PostMapping("/submit/{username}")
     public ResponseEntity<UserOrder> submit(@PathVariable String username) {

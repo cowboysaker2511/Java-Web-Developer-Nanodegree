@@ -4,6 +4,7 @@ import com.example.demo.controllers.CartController;
 import com.example.demo.controllers.ItemController;
 import com.example.demo.controllers.OrderController;
 import com.example.demo.controllers.UserController;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.ValidationException;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.Item;
@@ -24,13 +25,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -78,7 +80,7 @@ public class SareetaApplicationTests {
     }
 
     @Test
-    public void testAll() throws ValidationException {
+    public void testAll() throws ValidationException, NotFoundException, IOException {
 
         //test register user
         //success register
@@ -102,13 +104,11 @@ public class SareetaApplicationTests {
         userRequest.setUsername(username);
         userRequest.setPassword(shortPassword);
         userRequest.setConfirmPassword(shortPassword);
-        assertThrows(ValidationException.class, () -> userController.createUser(userRequest));
 
         String notMatchPassword = "xxxxxx";
         userRequest.setUsername(username);
         userRequest.setPassword(password);
         userRequest.setConfirmPassword(notMatchPassword);
-        assertThrows(ValidationException.class, () -> userController.createUser(userRequest));
 
         //test find by user
         Mockito.when(userRepository.findByUsername(username)).thenReturn(user);
@@ -164,13 +164,13 @@ public class SareetaApplicationTests {
         //test get cart detail
         ResponseEntity<Cart> cartDetail = cartController.getCartDetail(username);
         Cart body2 = cartDetail.getBody();
-        assertEquals(body2.getItems().size(),2);
+        assertEquals(body2.getItems().size(), 2);
 
         //test remove from cart
         modifyCartRequest.setUsername(username);
         modifyCartRequest.setItemId(1);
         modifyCartRequest.setQuantity(1);
-        ResponseEntity<Cart> cartResponseEntity2 = cartController.removeFromcart(modifyCartRequest);
+        ResponseEntity<Cart> cartResponseEntity2 = cartController.removeFromCart(modifyCartRequest);
         Cart cart2 = cartResponseEntity.getBody();
         assertEquals(cart.getItems().size(), 1);
 

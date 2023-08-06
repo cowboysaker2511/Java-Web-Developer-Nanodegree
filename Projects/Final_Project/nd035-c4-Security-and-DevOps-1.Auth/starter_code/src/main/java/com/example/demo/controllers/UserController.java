@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.exception.ValidationException;
+import com.example.demo.logger.UserControllerLogger;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.repositories.CartRepository;
@@ -11,9 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
+import static com.example.demo.Status.FAIL;
+import static com.example.demo.Status.SUCCESS;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    private UserControllerLogger logger = new UserControllerLogger();
 
     @Autowired
     private UserRepository userRepository;
@@ -36,21 +43,27 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity createUser(@RequestBody CreateUserRequest createUserRequest) throws ValidationException {
+    public ResponseEntity createUser(@RequestBody CreateUserRequest createUserRequest) throws ValidationException, IOException {
+        if (userRepository.findByUsername(createUserRequest.getUsername()) != null) {
+            logger.writeLog(createUserRequest, "Username is existed.", FAIL);
+            throw new ValidationException("Username is existed.");
+        } else if (createUserRequest.getPassword().length() < 7) {
+            logger.writeLog(createUserRequest, "Password must have more than 7 characters.", FAIL);
+            throw new ValidationException("Password must have more than 7 characters.");
+        } else if (!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
+            logger.writeLog(createUserRequest, "Password and confirm password do not match.", FAIL);
+            throw new ValidationException("Password and confirm password do not match.");
+        }
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
         Cart cart = new Cart();
         cartRepository.save(cart);
         user.setCart(cart);
-        if (createUserRequest.getPassword().length() < 7) {
-            throw new ValidationException("Password must have more than 7 characters!");
-        }
-        if (!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-            throw new ValidationException("Password and confirm password do not match!");
-        }
         user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
         userRepository.save(user);
+        logger.writeLog(createUserRequest, "Created user successfully.", SUCCESS);
         return ResponseEntity.ok(user);
+
     }
 
 }

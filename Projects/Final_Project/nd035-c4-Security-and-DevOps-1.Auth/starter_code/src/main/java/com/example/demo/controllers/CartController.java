@@ -1,5 +1,8 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.ValidationException;
+import com.example.demo.logger.CartControllerLogger;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.Item;
 import com.example.demo.model.persistence.User;
@@ -10,15 +13,18 @@ import com.example.demo.model.requests.ModifyCartRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import static com.example.demo.Status.FAIL;
+import static com.example.demo.Status.SUCCESS;
+
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
+    private CartControllerLogger logger = new CartControllerLogger();
 
     @Autowired
     private UserRepository userRepository;
@@ -30,31 +36,36 @@ public class CartController {
     private ItemRepository itemRepository;
 
     @PostMapping("/addToCart")
-    public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) {
+    public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) throws NotFoundException, ValidationException {
         User user = userRepository.findByUsername(request.getUsername());
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            logger.writeLog(request, "User is not found.", FAIL);
+            throw new NotFoundException("User is not found.");
         }
         Optional<Item> item = itemRepository.findById(request.getItemId());
         if (!item.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            logger.writeLog(request, "Item is not found.", FAIL);
+            throw new NotFoundException("Item is not found.");
         }
         Cart cart = user.getCart();
         IntStream.range(0, request.getQuantity())
                 .forEach(i -> cart.addItem(item.get()));
         cartRepository.save(cart);
+        logger.writeLog(request, "Add to cart successfully.", SUCCESS);
         return ResponseEntity.ok(cart);
     }
 
     @PostMapping("/removeFromCart")
-    public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
+    public ResponseEntity<Cart> removeFromCart(@RequestBody ModifyCartRequest request) throws ValidationException, NotFoundException {
         User user = userRepository.findByUsername(request.getUsername());
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            logger.writeLog(request, "User is not found.", FAIL);
+            throw new NotFoundException("User is not found.");
         }
         Optional<Item> item = itemRepository.findById(request.getItemId());
         if (!item.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            logger.writeLog(request, "Item is not found.", FAIL);
+            throw new NotFoundException("Item is not found.");
         }
         Cart cart = user.getCart();
         IntStream.range(0, request.getQuantity())
@@ -64,10 +75,10 @@ public class CartController {
     }
 
     @GetMapping("/getCartDetail")
-    public ResponseEntity<Cart> getCartDetail(@PathVariable String username) {
+    public ResponseEntity<Cart> getCartDetail(@PathVariable String username) throws NotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new NotFoundException("User is not found.");
         }
         Cart cart = user.getCart();
         return ResponseEntity.ok(cart);
