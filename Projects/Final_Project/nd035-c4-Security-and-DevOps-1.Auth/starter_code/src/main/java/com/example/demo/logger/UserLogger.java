@@ -1,6 +1,6 @@
 package com.example.demo.logger;
 
-import com.example.demo.Status;
+import com.example.demo.enumerate.Status;
 import com.example.demo.controllers.UserController;
 import com.example.demo.exception.ValidationException;
 import com.example.demo.model.requests.CreateUserRequest;

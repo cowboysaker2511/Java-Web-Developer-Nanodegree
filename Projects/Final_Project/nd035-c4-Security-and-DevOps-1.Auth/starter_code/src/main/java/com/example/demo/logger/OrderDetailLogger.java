@@ -1,6 +1,5 @@
 package com.example.demo.logger;
 
-import com.example.demo.Status;
 import com.example.demo.controllers.OrderController;
 import com.example.demo.exception.ValidationException;
 import com.example.demo.model.persistence.Cart;
@@ -15,8 +14,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class OrderDetailLogger {
     private final Logger logger = LoggerFactory.getLogger(OrderController.class);

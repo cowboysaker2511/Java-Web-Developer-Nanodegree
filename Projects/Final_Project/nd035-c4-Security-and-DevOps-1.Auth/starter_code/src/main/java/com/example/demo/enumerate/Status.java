@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.enumerate;
 
 public enum Status {
     SUCCESS,

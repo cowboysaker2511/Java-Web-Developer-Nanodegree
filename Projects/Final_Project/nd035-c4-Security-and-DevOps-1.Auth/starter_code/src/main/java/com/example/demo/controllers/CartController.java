@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import static com.example.demo.Status.FAIL;
-import static com.example.demo.Status.SUCCESS;
+import static com.example.demo.enumerate.Status.FAIL;
+import static com.example.demo.enumerate.Status.SUCCESS;
 
 @RestController
 @RequestMapping("/api/cart")

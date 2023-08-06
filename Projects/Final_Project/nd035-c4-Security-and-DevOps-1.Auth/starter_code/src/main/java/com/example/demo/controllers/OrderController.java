@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-import static com.example.demo.Status.SUCCESS;
+import static com.example.demo.enumerate.Status.SUCCESS;
 
 @RestController
 @RequestMapping("/api/order")
