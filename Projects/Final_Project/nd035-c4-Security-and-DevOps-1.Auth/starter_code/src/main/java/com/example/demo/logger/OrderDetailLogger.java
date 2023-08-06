@@ -39,7 +39,7 @@ public class OrderDetailLogger {
              CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
             //check if .csv file has defined headers
             BufferedReader headerReader = new BufferedReader(new FileReader(csvFile));
-            String expectedHeader = "ORDER_ID,USERNAME,ITEM_ID";
+            String expectedHeader = "ORDER_ID,USERNAME,ITEM";
             String actualHeader = headerReader.readLine(); // Read the first line
             if (actualHeader == null || !actualHeader.equals(expectedHeader)) {
                 csvPrinter.printRecord("ORDER_ID", "USERNAME", "ITEM");
