@@ -2,7 +2,6 @@ package com.example.demo.logger;
 
 import com.example.demo.Status;
 import com.example.demo.controllers.CartController;
-import com.example.demo.controllers.OrderController;
 import com.example.demo.exception.ValidationException;
 import com.example.demo.model.requests.ModifyCartRequest;
 import org.apache.commons.csv.CSVFormat;
@@ -18,9 +17,9 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class OrderControllerLogger {
-    private final Logger logger = LoggerFactory.getLogger(OrderController.class);
-    private final String csvFile = "ORDER_HISTORY.csv";
+public class CartLogger {
+    private final Logger logger = LoggerFactory.getLogger(CartController.class);
+    private final String csvFile = "CART_LOG.csv";
 
     public void writeLog(ModifyCartRequest request, String message, Status status) throws ValidationException {
         //check if file existed

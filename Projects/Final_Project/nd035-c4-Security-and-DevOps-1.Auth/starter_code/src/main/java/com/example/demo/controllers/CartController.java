@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.ValidationException;
-import com.example.demo.logger.CartControllerLogger;
+import com.example.demo.logger.CartLogger;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.Item;
 import com.example.demo.model.persistence.User;
@@ -11,7 +11,6 @@ import com.example.demo.model.persistence.repositories.ItemRepository;
 import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.model.requests.ModifyCartRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ import static com.example.demo.Status.SUCCESS;
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
-    private CartControllerLogger logger = new CartControllerLogger();
+    private CartLogger logger = new CartLogger();
 
     @Autowired
     private UserRepository userRepository;

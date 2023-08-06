@@ -1,9 +1,10 @@
 package com.example.demo.logger;
 
 import com.example.demo.Status;
-import com.example.demo.controllers.UserController;
+import com.example.demo.controllers.OrderController;
 import com.example.demo.exception.ValidationException;
-import com.example.demo.model.requests.CreateUserRequest;
+import com.example.demo.model.persistence.Cart;
+import com.example.demo.model.persistence.UserOrder;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -17,11 +18,11 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class UserControllerLogger {
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final String csvFile = "LOGIN_HISTORY.csv";
+public class OrderDetailLogger {
+    private final Logger logger = LoggerFactory.getLogger(OrderController.class);
+    private final String csvFile = "ORDER_DETAIL_LOG.csv";
 
-    public void writeLog(CreateUserRequest request, String message, Status status) throws ValidationException {
+    public void writeLog(UserOrder order, Cart cart) throws ValidationException {
         //check if file existed
         Path path = Paths.get(csvFile);
         if (!Files.exists(path)) {
@@ -38,18 +39,19 @@ public class UserControllerLogger {
              CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
             //check if .csv file has defined headers
             BufferedReader headerReader = new BufferedReader(new FileReader(csvFile));
-            String expectedHeader = "USERNAME,PASSWORD,CONFIRM_PASSWORD,MESSAGE,DATE_TIME,STATUS";
+            String expectedHeader = "ORDER_ID,USERNAME,ITEM_ID";
             String actualHeader = headerReader.readLine(); // Read the first line
             if (actualHeader == null || !actualHeader.equals(expectedHeader)) {
-                csvPrinter.printRecord("USERNAME", "PASSWORD", "CONFIRM_PASSWORD", "MESSAGE", "DATE_TIME", "STATUS");
+                csvPrinter.printRecord("ORDER_ID", "USERNAME", "ITEM");
             }
             //append log
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String requestTime = currentDateTime.format(formatter);
-            csvPrinter.printRecord(request.getUsername(), request.getPassword(), request.getConfirmPassword(), message, requestTime, status);
-
-            logger.warn(message);
+            cart.getItems().stream().forEach(item -> {
+                try {
+                    csvPrinter.printRecord(order.getId(), order.getUser().getUsername(), item.getName());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

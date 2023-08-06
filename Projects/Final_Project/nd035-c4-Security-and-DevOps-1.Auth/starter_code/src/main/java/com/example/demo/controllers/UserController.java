@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.exception.ValidationException;
-import com.example.demo.logger.UserControllerLogger;
+import com.example.demo.logger.UserLogger;
 import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.repositories.CartRepository;
@@ -20,7 +20,7 @@ import static com.example.demo.Status.SUCCESS;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private UserControllerLogger logger = new UserControllerLogger();
+    private UserLogger logger = new UserLogger();
 
     @Autowired
     private UserRepository userRepository;

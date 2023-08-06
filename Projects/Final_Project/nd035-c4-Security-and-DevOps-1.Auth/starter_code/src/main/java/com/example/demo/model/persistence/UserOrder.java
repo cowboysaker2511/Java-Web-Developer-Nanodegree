@@ -31,6 +31,16 @@ public class UserOrder {
     @Column
     private BigDecimal total;
 
+    public UserOrder() {
+    }
+
+    public UserOrder(Long id, List<Item> items, User user, BigDecimal total) {
+        this.id = id;
+        this.items = items;
+        this.user = user;
+        this.total = total;
+    }
+
     public static UserOrder createFromCart(Cart cart) {
         UserOrder order = new UserOrder();
         order.setItems(cart.getItems().stream().collect(Collectors.toList()));
